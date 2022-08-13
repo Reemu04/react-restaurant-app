@@ -21,6 +21,7 @@ const Header = () => {
       type: actionType.SET_USER,
       user: providerData[0],
     });
+    localStorage.setItem("user", JSON.stringify(providerData[0]));
   };
   // const url = user.photoURL;
   return (
@@ -57,7 +58,7 @@ const Header = () => {
           <div className="relative">
             <motion.img
               whileTap={{ scale: 0.6 }}
-              src={user ? firebaseAuth.currentUser.photoURL : Avatar}
+              src={user ? user.photoURL : Avatar}
               alt="userProfile"
               className="w-10 min-w-[40px] h-10 min-h-[40px] drop-shadow-xl cursor-pointer"
               onClick={login}
