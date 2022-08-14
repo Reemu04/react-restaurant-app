@@ -1,6 +1,7 @@
 import React from "react";
 import Delivery from "../assests/delivery.png";
 import HeroBg from "../assests/heroBg.png";
+import { heroData } from "../utils/data";
 
 const HomeContainer = () => {
   return (
@@ -39,14 +40,38 @@ const HomeContainer = () => {
           Order Now
         </button>
       </div>
-      <div className="py-2 flex-1  flex items-center justify-center">
+      <div className="py-2 flex-1  flex items-center relative">
         <img
           src={HeroBg}
           className="ml-auto h-420 w-full lg:w-auto lg:h-685"
           alt="Hero-Bg"
         />
 
-        <div className="w-full h-full absolute  flex items-center justify-center"></div>
+        <div className="w-full h-full absolute top-0 left-0 flex items-center justify-center px-1 md:px-1 lg:px-12 py-4 gap-4 flex-wrap">
+          {heroData &&
+            heroData.map((n) => (
+              <div
+                key={n.id}
+                className=" lg:w-190  p-4 bg-cardOverlay backdrop-blur-md rounded-3xl flex flex-col items-center justify-center drop-shadow-lg"
+              >
+                <img
+                  src={n.imgSrc}
+                  className="w-20 lg:w-40 -mt-10 lg:-mt-16"
+                  alt=""
+                />
+                <p className="text-base lg:text-xl font-semibold text-textColor mt-2 lg:mt-4">
+                  {n.name}
+                </p>
+                <p className="text-[12px] lg:text-sm text-lighttextGray font-semibold my-1 lg:my-3 ">
+                  {" "}
+                  {n.desc}
+                </p>
+                <p className="text-sm font-semibold text-headingColor">
+                  <span className="text-xs text-red-600">$</span> {n.price}
+                </p>
+              </div>
+            ))}
+        </div>
       </div>
     </section>
   );
