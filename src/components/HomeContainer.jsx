@@ -1,5 +1,6 @@
 import React from "react";
 import Delivery from "../assests/delivery.png";
+import HeroBg from "../assests/heroBg.png";
 
 const HomeContainer = () => {
   return (
@@ -38,7 +39,15 @@ const HomeContainer = () => {
           Order Now
         </button>
       </div>
-      <div className="py-2 bg-blue-400 flex-1"></div>
+      <div className="py-2 flex-1  flex items-center justify-center">
+        <img
+          src={HeroBg}
+          className="ml-auto h-420 w-full lg:w-auto lg:h-685"
+          alt="Hero-Bg"
+        />
+
+        <div className="w-full h-full absolute  flex items-center justify-center"></div>
+      </div>
     </section>
   );
 };
