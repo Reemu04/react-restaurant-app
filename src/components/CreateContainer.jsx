@@ -13,11 +13,24 @@ import {
   MdFoodBank,
   MdAttachMoney,
 } from "react-icons/md";
+import { actionType } from "../context/reducer";
+import { useStateValue } from "../context/StateProvide";
 import { storage } from "../firebase.config";
 import { categories } from "../utils/data";
-import { saveItem } from "../utils/FirebaseFunctions";
+import { getAllFoodItems, saveItem } from "../utils/FirebaseFunctions";
 import Loader from "./Loader";
 const CreateContainer = () => {
+  const [{ foodItems }, dispatch] = useStateValue();
+
+  const fetchData = async () => {
+    await getAllFoodItems().then((data) =>
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data,
+      })
+    );
+  };
+
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [price, setPrice] = useState("");
@@ -132,6 +145,7 @@ const CreateContainer = () => {
         setIsLoading(false);
       }, 4000);
     }
+    fetchData();
   };
 
   const clearData = () => {
