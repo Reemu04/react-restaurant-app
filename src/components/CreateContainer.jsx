@@ -1,3 +1,9 @@
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import {
@@ -7,23 +13,134 @@ import {
   MdFoodBank,
   MdAttachMoney,
 } from "react-icons/md";
+import { storage } from "../firebase.config";
 import { categories } from "../utils/data";
+import { saveItem } from "../utils/FirebaseFunctions";
 import Loader from "./Loader";
 const CreateContainer = () => {
   const [title, setTitle] = useState("");
   const [calories, setCalories] = useState("");
   const [price, setPrice] = useState("");
-  const [category, setCategory] = useState(null);
+  const [category, setCategory] = useState("");
   const [imageAssest, setimageAssest] = useState(null);
   const [fields, setFields] = useState(false);
   const [alertSTatus, setAlertSTatus] = useState("danger");
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const uploadImage = () => {};
+  const uploadImage = (e) => {
+    setIsLoading(true);
+    const imageFile = e.target.files[0];
+    console.log(imageFile);
+    const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
-  const deleteImage = () => {};
-  const saveDetails = () => {};
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const uploadProgress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      },
+      (error) => {
+        console.log(error);
+        setFields(true);
+        setMsg("Error WHile uploading: Try Again 🔥");
+        setAlertSTatus("danger");
+        setTimeout(() => {
+          setFields(false);
+          setIsLoading(false);
+        }, 4000);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setimageAssest(downloadURL);
+          setIsLoading(false);
+          setFields(true);
+          setMsg("Image Uploaded Successfully");
+          setAlertSTatus("success");
+
+          setTimeout(() => {
+            setFields(false);
+          }, 4000);
+        });
+      }
+    );
+  };
+
+  const deleteImage = () => {
+    setIsLoading(true);
+    const deleteRef = ref(storage, imageAssest);
+    deleteObject(deleteRef).then(() => {
+      setimageAssest(null);
+      setIsLoading(false);
+      setFields(true);
+      setMsg("Image Deleted Successfully");
+      setAlertSTatus("success");
+      setTimeout(() => {
+        setFields(false);
+      }, 4000);
+    });
+  };
+  const saveDetails = () => {
+    setIsLoading(true);
+
+    try {
+      if (
+        !title ||
+        !calories ||
+        !imageAssest ||
+        !price ||
+        !category ||
+        category === "Select Category"
+      ) {
+        setFields(true);
+        setMsg("Required Fields can't be empty");
+        setAlertSTatus("danger");
+        setTimeout(() => {
+          setFields(false);
+          setIsLoading(false);
+        }, 4000);
+      } else {
+        const data = {
+          id: `${Date.now()}`,
+          title: title,
+          imageURL: imageAssest,
+          category,
+          calories,
+          qty: 1,
+          price,
+        };
+
+        saveItem(data);
+
+        setIsLoading(false);
+        setFields(true);
+        setMsg("Data Uploaded Successfully");
+        setAlertSTatus("success");
+        clearData();
+        setTimeout(() => {
+          setFields(false);
+        }, 4000);
+      }
+    } catch (err) {
+      console.log(err);
+      setFields(true);
+      setMsg("Error WHile uploading: Try Again 🔥");
+      setAlertSTatus("danger");
+      setTimeout(() => {
+        setFields(false);
+        setIsLoading(false);
+      }, 4000);
+    }
+  };
+
+  const clearData = () => {
+    setTitle("");
+    setimageAssest(null);
+    setCalories("");
+    setPrice("");
+    setCategory("Select Category");
+  };
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
       <div className="w-[90%] md:w-[75%] border border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center gap-4">
@@ -57,11 +174,12 @@ const CreateContainer = () => {
         <div className="w-full">
           <select
             onChange={(e) => setCategory(e.target.value)}
+            value={category}
             name=""
             id=""
             className="outline-none w-full text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
           >
-            <option value="other" className="bg-white">
+            <option value="" className="bg-white">
               Select Category
             </option>
             {categories &&
@@ -105,7 +223,7 @@ const CreateContainer = () => {
                   <div className="relative h-full">
                     <img
                       src={imageAssest}
-                      alt="Uploaded Image"
+                      alt="Uploaded"
                       className="w-full h-full object-cover"
                     />
                     <button
