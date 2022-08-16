@@ -7,7 +7,7 @@ import RowContainer from "./RowContainer";
 import MenuContainer from "./MenuContainer";
 import CartContainer from "./CartContainer";
 const MainContainer = () => {
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [{ foodItems, cartShow }, dispatch] = useStateValue();
   const rowContainerRef = useRef();
 
   const scroll = (scrolloffset) => {
@@ -55,7 +55,7 @@ const MainContainer = () => {
       </section>
 
       <MenuContainer />
-      <CartContainer />
+      {cartShow && <CartContainer />}
     </div>
   );
 };
