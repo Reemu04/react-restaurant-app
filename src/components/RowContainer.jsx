@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdShoppingBasket } from "react-icons/md";
+import NotFound from "../assests/NotFound.svg";
 const RowContainer = React.forwardRef(({ data, flag }, ref) => {
   return (
     <div
@@ -8,10 +9,10 @@ const RowContainer = React.forwardRef(({ data, flag }, ref) => {
       className={`w-full flex items-center gap-3 my-12 scroll-smooth ${
         flag
           ? "overflow-x-scroll scrollbar-none"
-          : "overflow-x-hidden flex-wrap"
+          : "overflow-x-hidden flex-wrap justify-center"
       }`}
     >
-      {data &&
+      {data && data.length > 0 ? (
         data.map((item) => (
           <div
             key={item.id}
@@ -22,7 +23,7 @@ const RowContainer = React.forwardRef(({ data, flag }, ref) => {
                 whileHover={{ scale: 1.2 }}
                 src={item?.imageURL}
                 alt=""
-                className="w-40 h-28  object-contain -mt-8 drop-shadow-2xl"
+                className="w-40 h-40  object-contain -mt-8 drop-shadow-2xl"
               />
               <motion.div
                 whileTap={{ scale: 0.75 }}
@@ -46,7 +47,15 @@ const RowContainer = React.forwardRef(({ data, flag }, ref) => {
               </div>
             </div>
           </div>
-        ))}
+        ))
+      ) : (
+        <div className="w-full  flex-col flex items-center justify-center">
+          <img className="h-340" src={NotFound} />
+          <p className="text-xl text-headingColor font-semibold my-2">
+            Items Not Available
+          </p>{" "}
+        </div>
+      )}
     </div>
   );
 });
