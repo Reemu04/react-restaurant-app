@@ -5,6 +5,7 @@ import HomeContainer from "./HomeContainer";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import RowContainer from "./RowContainer";
 import MenuContainer from "./MenuContainer";
+import CartContainer from "./CartContainer";
 const MainContainer = () => {
   const [{ foodItems }, dispatch] = useStateValue();
   const rowContainerRef = useRef();
@@ -54,6 +55,7 @@ const MainContainer = () => {
       </section>
 
       <MenuContainer />
+      <CartContainer />
     </div>
   );
 };
