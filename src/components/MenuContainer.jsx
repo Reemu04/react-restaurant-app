@@ -8,7 +8,7 @@ import RowContainer from "./RowContainer";
 const MenuContainer = () => {
   const [filter, setFilter] = useState("chicken");
 
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [{ foodItems }] = useStateValue();
 
   return (
     <section className="w-full my-6" id="menu">
