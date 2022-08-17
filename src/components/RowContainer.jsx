@@ -2,7 +2,23 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { MdShoppingBasket } from "react-icons/md";
 import NotFound from "../assests/NotFound.svg";
+import { actionType } from "../context/reducer";
+import { useStateValue } from "../context/StateProvide";
 const RowContainer = React.forwardRef(({ data, flag }, ref) => {
+  const [{ cartItems }, dispatch] = useStateValue();
+
+  const [item, setItem] = useState([]);
+  const addToCart = () => {
+    dispatch({
+      type: actionType.SET_CART_ITEMS,
+      cartItems: item,
+    });
+    localStorage.setItem("cartItems", JSON.stringify(item));
+  };
+
+  useEffect(() => {
+    addToCart();
+  }, [item]);
   return (
     <div
       ref={ref}
@@ -28,6 +44,7 @@ const RowContainer = React.forwardRef(({ data, flag }, ref) => {
               <motion.div
                 whileTap={{ scale: 0.75 }}
                 className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md "
+                onClick={() => setItem([...cartItems, item])}
               >
                 <MdShoppingBasket className="text-white " />
               </motion.div>

@@ -12,7 +12,7 @@ import { useState } from "react";
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
-  const [{ user, cartShow }, dispatch] = useStateValue();
+  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
 
   const [isMenu, setIsMenu] = useState(false);
   const login = async () => {
@@ -81,9 +81,14 @@ const Header = () => {
             onClick={showCart}
           >
             <MdShoppingBasket className="text-textColor text-2xl  cursor-pointer" />
-            <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
-              <p className="text-xs text-white font-semibold ">2</p>
-            </div>
+            {cartItems && cartItems.length > 0 && (
+              <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
+                <p className="text-xs text-white font-semibold ">
+                  {cartItems.length}
+                  {console.log(localStorage.getItem("cartItems"))}
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="relative">
@@ -136,9 +141,11 @@ const Header = () => {
           onClick={showCart}
         >
           <MdShoppingBasket className="text-textColor text-2xl  cursor-pointer" />
-          <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
-            <p className="text-xs text-white font-semibold ">2</p>
-          </div>
+          {cartItems && cartItems.length > 0 && (
+            <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
+              <p className="text-xs text-white font-semibold ">2</p>
+            </div>
+          )}
         </div>
         <Link to="/" className="flex items-center gap-2">
           <img src={Logo} alt="logo" className="w-8 object-cover " />
