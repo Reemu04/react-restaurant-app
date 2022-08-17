@@ -20,7 +20,7 @@ import { categories } from "../utils/data";
 import { getAllFoodItems, saveItem } from "../utils/FirebaseFunctions";
 import Loader from "./Loader";
 const CreateContainer = () => {
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [, dispatch] = useStateValue();
 
   const fetchData = async () => {
     await getAllFoodItems().then((data) =>
@@ -51,6 +51,7 @@ const CreateContainer = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
+        // eslint-disable-next-line
         const uploadProgress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },

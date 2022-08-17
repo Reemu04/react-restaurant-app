@@ -21,6 +21,7 @@ const CartItem = ({ item, setFlag, flag }) => {
   const updateQty = (action, id) => {
     if (action === "add") {
       setQty(qty + 1);
+      // eslint-disable-next-line
       cartItems.map((item) => {
         if (item.id === id) {
           item.qty += 1;
@@ -36,6 +37,7 @@ const CartItem = ({ item, setFlag, flag }) => {
         cartDispatch();
       } else {
         setQty(qty - 1);
+        // eslint-disable-next-line
         cartItems.map((item) => {
           if (item.id === id) {
             item.qty -= 1;
