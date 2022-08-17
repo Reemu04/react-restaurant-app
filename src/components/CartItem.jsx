@@ -61,7 +61,7 @@ const CartItem = ({ item, setFlag, flag }) => {
         <img
           className="w-20 h-20 max-w-[60px] rounded-full object-contain "
           src={item?.imageURL}
-          alt=""
+          alt="url"
         />
 
         {/* name section  */}

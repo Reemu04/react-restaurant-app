@@ -57,7 +57,7 @@ const HomeContainer = () => {
                 <img
                   src={n.imgSrc}
                   className="w-20 lg:w-40 -mt-10 lg:-mt-16"
-                  alt=""
+                  alt="herodata"
                 />
                 <p className="text-base lg:text-xl font-semibold text-textColor mt-2 lg:mt-4">
                   {n.name}

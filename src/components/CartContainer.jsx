@@ -116,7 +116,7 @@ const CartContainer = () => {
         </div>
       ) : (
         <div className="w-full h-full flex flex-col items-center justify-center gap-6">
-          <img src={EmptyCart} className="w-300" alt="" />
+          <img src={EmptyCart} className="w-300" alt="emptycart" />
           <p className="text-xl text-textColor font-semibold">
             Add Some item to your Cart
           </p>

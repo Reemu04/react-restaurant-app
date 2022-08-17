@@ -18,6 +18,7 @@ const RowContainer = React.forwardRef(({ data, flag }, ref) => {
 
   useEffect(() => {
     addToCart();
+    // eslint-disable-next-line
   }, [item]);
   return (
     <div
@@ -67,7 +68,7 @@ const RowContainer = React.forwardRef(({ data, flag }, ref) => {
         ))
       ) : (
         <div className="w-full  flex-col flex items-center justify-center">
-          <img className="h-340" src={NotFound} />
+          <img className="h-340" src={NotFound} alt="row" />
           <p className="text-xl text-headingColor font-semibold my-2">
             Items Not Available
           </p>{" "}

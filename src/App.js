@@ -8,7 +8,7 @@ import { actionType } from "./context/reducer";
 import { useStateValue } from "./context/StateProvide";
 import { getAllFoodItems } from "./utils/FirebaseFunctions";
 const App = () => {
-  const [{ foodItems }, dispatch] = useStateValue();
+  const [, dispatch] = useStateValue();
 
   const fetchData = async () => {
     await getAllFoodItems().then((data) =>
@@ -21,6 +21,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line
   }, []);
   return (
     <AnimatePresence exitBeforeEnter>
