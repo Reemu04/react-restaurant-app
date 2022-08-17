@@ -44,7 +44,7 @@ const CreateContainer = () => {
   const uploadImage = (e) => {
     setIsLoading(true);
     const imageFile = e.target.files[0];
-    console.log(imageFile);
+    // console.log(imageFile);
     const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
@@ -55,7 +55,7 @@ const CreateContainer = () => {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         setFields(true);
         setMsg("Error WHile uploading: Try Again 🔥");
         setAlertSTatus("danger");
@@ -136,7 +136,7 @@ const CreateContainer = () => {
         }, 4000);
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       setFields(true);
       setMsg("Error WHile uploading: Try Again 🔥");
       setAlertSTatus("danger");

@@ -18,7 +18,7 @@ const Header = () => {
   const login = async () => {
     if (!user) {
       const {
-        user: { refreshToken, providerData },
+        user: { providerData },
       } = await signInWithPopup(firebaseAuth, provider);
       dispatch({
         type: actionType.SET_USER,
@@ -85,7 +85,7 @@ const Header = () => {
               <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex justify-center items-center">
                 <p className="text-xs text-white font-semibold ">
                   {cartItems.length}
-                  {console.log(localStorage.getItem("cartItems"))}
+                  {/* {console.log(localStorage.getItem("cartItems"))} */}
                 </p>
               </div>
             )}

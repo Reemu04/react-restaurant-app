@@ -29,7 +29,7 @@ const CartItem = ({ item, setFlag, flag }) => {
       });
       cartDispatch();
     } else {
-      console.log(typeof qty);
+      // console.log(typeof qty);
       if (qty === 1) {
         items = cartItems.filter((item) => item.id !== id);
         setFlag(flag + 1);
@@ -48,7 +48,7 @@ const CartItem = ({ item, setFlag, flag }) => {
   };
   useEffect(() => {
     items = cartItems;
-  }, [qty, items]);
+  }, [qty, items, cartItems]);
   return (
     <div>
       {" "}
