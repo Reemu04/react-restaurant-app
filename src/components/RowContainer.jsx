@@ -33,7 +33,7 @@ const RowContainer = React.forwardRef(({ data, flag }, ref) => {
         data.map((item) => (
           <div
             key={item.id}
-            className="w-275 h-auto min-w-[275px]  md:min-w-[300] md:w-300  bg-cardOverlay rounded-lg p-2  my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-between"
+            className="w-275 h-auto min-w-[275px]  md:min-w-[300] md:w-300  bg-cardOverlay rounded-lg p-2  my-2 md:my-12 backdrop-blur-lg hover:drop-shadow-lg flex flex-col items-center justify-between"
           >
             <div className="w-full flex items-center justify-between">
               <motion.img
