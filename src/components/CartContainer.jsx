@@ -8,7 +8,7 @@ import { actionType } from "../context/reducer";
 import EmptyCart from "../assests/emptyCart.svg";
 import CartItem from "./CartItem";
 const CartContainer = () => {
-  const [{ cartShow, cartItems, user }, dispatch] = useStateValue();
+  const [{ cartShow, cartItems }, dispatch] = useStateValue();
   const [flag, setFlag] = useState(1);
   const [tot, setTot] = useState(0);
   const showCart = () => {
